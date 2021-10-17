@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block title %}
+{{ negocio.name }}
+
+{% endblock %}
+{% block content %}
+
+<div class="container">
+  <div class="card ">
+      <hr><br>
+  <h1 class="title has-text-centered"> {{ negocio.name }}</h1>
+  <h1 class="sub-title has-text-centered"> {{ negocio.category }}</h1>
+  <h1 class="title is-4 has-text-centered"> {{ negocio.mail }}</h1>
+  <div class="content has-text-centered">
+      {{ negocio.description }}
+  </div>
+  <h1 class="title is-4 has-text-centered">Contáctanos</h1>
+  <div class="columns is-centered">
+    <div class="column  is-half">
+      <form method="POST" class="">
+        {% csrf_token %}
+        <div class="field">
+          <label class="label">Nombre</label>
+          <div class="control">
+            {% render_field form.name class="input"%}
+          </div>
+        </div>
+        
+        <div class="field">
+          <label class="label">Mail</label>
+          <div class="control">
+            {% render_field form.mail class="input" %}
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Asunto</label>
+          <div class="control">
+            {% render_field form.subject class="input" %}
+          </div>
+        </div>
+        <div class="field">
+          <label class="label">Descripción</label>
+          <div class="control">
+            {% render_field form.description class="textarea" %}
+          </div>
+        </div>
+        <div class="field is-grouped">
+          <div class="control">
+            <button class="button is-primary">Enviar</button>
+          </div>
+          <div class="control">
+            <button class="button is-link is-light">Cancelar</button>
+          </div>
+        </div>
+        
+         
+      </form>
+
+    </div>
+  </div>
+  
+  </div>
+  
+</div>
+
+
+<script src="https://unpkg.com/vue@next"></script>
+<script>
+    Vue.createApp({
+      data() {
+        return {
+          items: [{ message: '{{ negocio.name }}' }, { message: '{{ negocio.description }}' }]
+        }
+      },
+      compilerOptions: {
+        delimiters: ["[[", "]]"]
+      }
+    }).mount('#array-rendering')
+</script>
+{% endblock %}
